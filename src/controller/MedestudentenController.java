@@ -1,19 +1,14 @@
 package controller;
 
-import java.util.Calendar;
-import java.util.List;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-
 import model.PrIS;
 import model.klas.Klas;
 import model.persoon.Student;
 import server.Conversation;
 import server.Handler;
+
+import javax.json.*;
+import java.util.Calendar;
+import java.util.List;
 
 public class MedestudentenController implements Handler {
 	private PrIS informatieSysteem;
@@ -48,6 +43,7 @@ public class MedestudentenController implements Handler {
 	private void ophalen(Conversation conversation) {
 		JsonObject lJsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String lGebruikersnaam = lJsonObjectIn.getString("username");
+
 		Student lStudentZelf = informatieSysteem.getStudent(lGebruikersnaam);
 		String lGroepIdZelf = lStudentZelf.getGroepId();
 
@@ -59,16 +55,18 @@ public class MedestudentenController implements Handler {
 
 		for (Student lMedeStudent : lStudentenVanKlas) { // met daarin voor elke medestudent een JSON-object...
 			if (lMedeStudent == lStudentZelf) // behalve de student zelf...
-				continue;
-			else {
+            {
+            	continue;
+            } else {
 				String lGroepIdAnder = lMedeStudent.getGroepId();
 				boolean lZelfdeGroep = ((lGroepIdZelf != "") && (lGroepIdAnder == lGroepIdZelf));
 				JsonObjectBuilder lJsonObjectBuilderVoorStudent = Json.createObjectBuilder(); // maak het JsonObject
 																								// voor een student
 				String lLastName = lMedeStudent.getVolledigeAchternaam();
-				lJsonObjectBuilderVoorStudent.add("id", lMedeStudent.getStudentNummer()) // vul het JsonObject
-						.add("firstName", lMedeStudent.getVoornaam()).add("lastName", lLastName)
-						.add("sameGroup", lZelfdeGroep);
+				lJsonObjectBuilderVoorStudent.add("id", lMedeStudent.getStudentNummer())
+						.add("firstName", lMedeStudent.getVoornaam())
+						.add("lastName", lLastName)
+						.add("sameGroup", lZelfdeGroep);// vul het JsonObject
 
 				lJsonArrayBuilder.add(lJsonObjectBuilderVoorStudent); // voeg het JsonObject aan het array toe
 			}
@@ -79,7 +77,7 @@ public class MedestudentenController implements Handler {
 
 	/**
 	 * Deze methode haalt eerst de opgestuurde JSON-data op. Op basis van deze
-	 * gegevens het domeinmodel gewijzigd. Een eventuele errorcode wordt tenslotte
+	 * gegevens het domeinmodel gewijzigd. Een eventueles errorcode wordt tenlotte
 	 * weer (als JSON) teruggestuurd naar de Polymer-GUI!
 	 * 
 	 * @param conversation - alle informatie over het request
@@ -121,4 +119,6 @@ public class MedestudentenController implements Handler {
 		String lJsonOutStr = lJob.build().toString();
 		conversation.sendJSONMessage(lJsonOutStr); // terug naar de Polymer-GUI!
 	}
+
+
 }

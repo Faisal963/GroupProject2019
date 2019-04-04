@@ -1,13 +1,13 @@
 package controller;
 
-import java.util.Calendar;
-
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
-
 import model.PrIS;
 import server.Conversation;
 import server.Handler;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import java.util.Calendar;
 
 public class SysteemDatumController implements Handler {
 
@@ -30,6 +30,8 @@ public class SysteemDatumController implements Handler {
 
 	private void ophalenLesInfo(Conversation conversation) {
 		// <to do> begin
+		JsonObject lJsonObject = (JsonObject) conversation.getRequestBodyAsJSON();
+
 
 		// De volgende statements moeten gewijzigd worden zodat daadwerkelijk de eerste
 		// en laatste lesdatum wordt bepaald
