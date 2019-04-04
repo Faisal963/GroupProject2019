@@ -1,12 +1,12 @@
 package controller;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-
 import model.PrIS;
 import server.Conversation;
 import server.Handler;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 class LoginController implements Handler {
 	private PrIS informatieSysteem;
@@ -27,6 +27,7 @@ class LoginController implements Handler {
 			login(conversation);
 		}
 	}
+
 
 	/**
 	 * Deze methode haalt eerst de opgestuurde JSON-data op. Daarna worden de

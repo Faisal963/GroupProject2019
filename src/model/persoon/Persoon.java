@@ -2,9 +2,21 @@ package model.persoon;
 
 public abstract class Persoon {
 
-	private String voornaam, tussenvoegsel, achternaam, wachtwoord, gebruikersnaam;
+	private String voornaam,
+			tussenvoegsel,
+			achternaam,
+			wachtwoord,
+			gebruikersnaam;
 
-	public Persoon(String voornaam, String tussenvoegsel, String achternaam, String wachtwoord, String gebruikersnaam) {
+	public String getTussenvoegsel() {
+		return tussenvoegsel;
+	}
+
+	public Persoon(String voornaam,
+				   String tussenvoegsel,
+				   String achternaam,
+				   String wachtwoord,
+				   String gebruikersnaam) {
 		this.voornaam = voornaam;
 		this.tussenvoegsel = tussenvoegsel;
 		this.achternaam = achternaam;
@@ -19,9 +31,11 @@ public abstract class Persoon {
 		boolean gelijk = false;
 		if (obj instanceof Persoon) {
 			Persoon p = (Persoon) obj;
-			gelijk = this.voornaam.equals(p.voornaam) && this.tussenvoegsel.equals(p.tussenvoegsel)
-					&& this.achternaam.equals(p.achternaam) && this.wachtwoord.equals(p.wachtwoord)
-					&& this.gebruikersnaam.equals(gebruikersnaam);
+			gelijk = this.voornaam.equals(p.voornaam)
+					&& this.tussenvoegsel.equals(p.tussenvoegsel)
+					&& this.achternaam.equals(p.achternaam)
+					&& this.wachtwoord.equals(p.wachtwoord)
+					&& this.gebruikersnaam.equals(p.gebruikersnaam);
 		}
 		return gelijk;
 	}
@@ -44,7 +58,9 @@ public abstract class Persoon {
 
 	public String getVolledigeAchternaam() {
 		String lVolledigeAchternaam = "";
-		if (this.tussenvoegsel != null && this.tussenvoegsel != "" && this.tussenvoegsel.length() > 0) {
+		if (this.tussenvoegsel != null
+				&& this.tussenvoegsel != ""
+				&& this.tussenvoegsel.length() > 0) {
 			lVolledigeAchternaam += this.tussenvoegsel + " ";
 		}
 		lVolledigeAchternaam += this.getAchternaam();
